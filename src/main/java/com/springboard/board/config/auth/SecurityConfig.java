@@ -1,5 +1,6 @@
 package com.springboard.board.config.auth;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -35,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("SELECT user_id, password, true FROM users WHERE user_id = ?")
                 .authoritiesByUsernameQuery("SELECT user_id, role FROM users WHERE user_id = ?")
-                .passwordEncoder(passwordEncoder())
-                .withUser("user").password(passwordEncoder().encode("user123")).roles("USER");
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
